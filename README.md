@@ -1,11 +1,6 @@
-Este proyecto consiste en una página web para una aerolínea ficticia que ofrece vuelos dentro de Argentina (por un tema de facilidad en cuanto a destinos y aeropuertos). La plataforma permite a los usuarios realizar diversas operaciones relacionadas con la gestión de vuelos nacionales, tales como:
 
-Inicio de sesión y registro de usuarios.
-Recuperación de contraseña en caso de olvido.
-Selección de vuelos: los usuarios pueden elegir su lugar de origen y destino, además de las fechas de ida y vuelta.
-La plataforma debería permitir la búsqueda de vuelos disponibles, mostrando detalles como el horario, el precio, el lugar de destino y la cantidad de pasajes a comprar. Sin embargo, esta funcionalidad no pude terminarla, ya que surgieron problemas con la solicitud a la base de datos para filtrar en base a los parámetros enviados.
 
-Existen algunas opciones que quedaron obsoletas, ya que mi idea inicial era permitir que los usuarios seleccionaran uno de los vuelos registrados, procedieran al pago y se enviara un correo con la información adicional necesaria. Además, tras realizar una simulación de pago, el vuelo debería registrarse como parte del historial de vuelos del usuario. Sin embargo, este fue un desafío que no pude completar debido a el tiempo disponible.
+
 
 # Getting Started with Create React App
 
