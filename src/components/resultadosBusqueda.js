@@ -73,7 +73,7 @@ const FlightSelection = () => {
     });
     setCart(updatedCart);
   };
-  
+
   const handlePayment = async () => {
     const authToken = localStorage.getItem('authToken');
   
@@ -83,6 +83,8 @@ const FlightSelection = () => {
       return;
     }
   
+    const totalPrice = cart.reduce((acc, flight) => acc + flight.precio * flight.passengers, 0);
+
     const flightDetails = cart.map((flight) => ({
       fechaVuelo: flight.fechaVuelo,
       horario: flight.horario,
@@ -103,7 +105,7 @@ const FlightSelection = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ flights: flightDetails }), 
+        body: JSON.stringify({ flights: flightDetails, totalPrice: totalPrice, }), 
       });
   
       if (response.ok) {
@@ -120,8 +122,6 @@ const FlightSelection = () => {
       setAlertMessage('Hubo un error al conectar con el servidor. Intenta más tarde.');
     }
   };
-  
- 
   
   return (
     <>
