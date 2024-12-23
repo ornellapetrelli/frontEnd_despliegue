@@ -33,15 +33,15 @@ function Login({ setIsAuthenticated }) {
         console.log('Respuesta del servidor:', response);
 
         const data = await response.json();
-  console.log('Datos recibidos:', data);
+        // console.log('Datos recibidos:', data);
 
         if (response.ok && data.ok) {
           const token = data.payload.token; 
-          console.log('Token recibido:', token);
+          // console.log('Token recibido:', token);
           localStorage.setItem('authToken', token);
           localStorage.setItem('userEmail', email);
-          console.log(localStorage.getItem('userEmail'));
-          console.log(localStorage.getItem('authToken'));
+          // console.log(localStorage.getItem('userEmail'));
+          // console.log(localStorage.getItem('authToken'));
           setIsAuthenticated(true); 
           navigate('/'); 
         } else {
