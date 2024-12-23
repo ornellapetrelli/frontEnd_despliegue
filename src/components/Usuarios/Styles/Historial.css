@@ -1,5 +1,5 @@
 body {
-  background-color: #f7f9fb; 
+  background-color: #f7f9fb;
   color: #333;
   font-family: 'Arial', sans-serif;
   min-height: 100vh;
@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   margin: 0;
   padding: 0;
-  padding-top: 60px; 
+  padding-top: 80px;
 }
 
 h1 {
@@ -37,6 +37,7 @@ h1 {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
 }
+
 header {
   position: sticky;
   top: 0;
@@ -44,18 +45,6 @@ header {
   padding: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
-}
-
-body {
-  background-color: #f7f9fb;
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  padding-top: 80px; 
 }
 
 .no-flights-message {
@@ -137,7 +126,6 @@ body {
   background-color: #d32f2f;
   box-shadow: 0 6px 15px rgba(211, 47, 47, 0.4);
 }
-
 
 @media (max-width: 1024px) {
   .flights-list {
