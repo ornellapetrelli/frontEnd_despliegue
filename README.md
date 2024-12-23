@@ -7,6 +7,10 @@ Este proyecto consiste en una página web para una aerolínea ficticia que ofrec
 - Consultar vuelos disponibles.
 - Reservar vuelos y gestionar datos de usuarios.
 
+## Dificultades y Limitaciones
+
+Durante el desarrollo del proyecto, tuve algunas dificultades con el manejo de las fechas, lo que resultó en una diferencia de un día en los cálculos. Además, no pude implementar la funcionalidad de "total price" en las reservas debido a que prioricé la solución de problemas con el despliegue de la aplicación.
+
 ## Librerías usadas
 
 Este proyecto hace uso de varias librerías y herramientas para facilitar el desarrollo:
