@@ -37,19 +37,19 @@ const Historial = () => {
         console.error('Token no encontrado. Usuario no autenticado.');
         return;
       }
-  
+
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/history/eliminar/${idVuelo}`, {
-        method: 'DELETE',  
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Error al cancelar el vuelo');
       }
-  
+
       setUserFlights((prevFlights) =>
         prevFlights.filter((flight) => flight._id !== idVuelo)
       );
@@ -76,7 +76,7 @@ const Historial = () => {
             <li key={index} className="flight-item">
               <div className={`ticket ${flight.estadoVuelo === 'Cancelado' ? 'cancelled' : ''}`}>
                 <div className="ticket-header">
-                  <p><strong>Partida:</strong> {flight.lugarPartida}</p> {/* Nueva línea agregada para la partida */}
+                  <p><strong>Partida:</strong> {flight.lugarPartida}</p>
                   <p><strong>Destino:</strong> {flight.lugarDestino}</p>
                   <p><strong>Fecha:</strong> {new Date(flight.fechaVuelo).toLocaleDateString()}</p>
                 </div>
@@ -85,6 +85,7 @@ const Historial = () => {
                   <p><strong>Aerolínea:</strong> {flight.aerolinea}</p>
                 </div>
                 <div className="ticket-footer">
+                  {console.log(flight.estadoVuelo)}
                   {flight.estadoVuelo !== 'Cancelado' && (
                     <button
                       className="btn-cancel"
@@ -97,11 +98,12 @@ const Historial = () => {
               </div>
             </li>
           ))}
+
         </ul>
       )}
     </div>
   );
-  
+
 };
 
 export default Historial;
