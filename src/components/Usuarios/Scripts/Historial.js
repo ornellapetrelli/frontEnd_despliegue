@@ -84,7 +84,7 @@ const Historial = () => {
                   <p><strong>Precio:</strong> ${flight.precio}</p>
                   <p><strong>Aerolínea:</strong> {flight.aerolinea}</p>
                 </div>
-                <div className="ticket-footer">
+                {/* <div className="ticket-footer">
                   {console.log(flight.estadoVuelo)}
                   {flight.estadoVuelo !== 'Cancelado' && (
                     <button
@@ -94,6 +94,14 @@ const Historial = () => {
                       Cancelar Vuelo
                     </button>
                   )}
+                </div> */}
+                <div className="ticket-footer">
+                  <button
+                    className="btn-cancel"
+                    onClick={() => cancelarVuelo(flight._id)}
+                  >
+                    Cancelar Vuelo
+                  </button>
                 </div>
               </div>
             </li>
