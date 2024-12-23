@@ -111,7 +111,7 @@ header {
 .btn-cancel {
   background-color: #ff5252;
   color: white;
-  border: none;
+  border: 2px solid red; 
   border-radius: 25px;
   padding: 10px 25px;
   cursor: pointer;
@@ -121,6 +121,7 @@ header {
   box-shadow: 0 4px 8px rgba(255, 82, 82, 0.3);
   letter-spacing: 1px;
 }
+
 
 .btn-cancel:hover {
   background-color: #d32f2f;
