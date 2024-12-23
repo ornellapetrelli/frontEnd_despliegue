@@ -73,26 +73,28 @@ const FlightSelection = () => {
     });
     setCart(updatedCart);
   };
+  
   const handlePayment = async () => {
     const authToken = localStorage.getItem('authToken');
-    const userEmail = localStorage.getItem('userEmail');
   
     if (!authToken) {
-      console.log('No token found, redirecting to login...');
+      console.log('No se encontró token, redirigiendo a login...');
       navigate('/Usuarios/login');
       return;
     }
   
-    if (!userEmail) {
-      console.log('No user email found.');
-      return;
-    }
-  
-    const paymentDetails = {
-      flights: cart,
-      totalPrice: cart.reduce((total, flight) => total + (flight.precio * flight.passengers), 0),
-      email: userEmail,
-    };
+    const flightDetails = cart.map((flight) => ({
+      fechaVuelo: flight.fechaVuelo,
+      horario: flight.horario,
+      codigoVuelo: flight.codigoVuelo,
+      lugarPartida: flight.lugarPartida,
+      lugarDestino: flight.lugarDestino,
+      precio: flight.precio,
+      duracion: flight.duracion,
+      aerolinea: flight.aerolinea,
+      estadoVuelo: flight.estadoVuelo,
+      claseServicio: flight.claseServicio,
+    }));
   
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/history/agregar`, {
@@ -101,26 +103,26 @@ const FlightSelection = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`,
         },
-        body: JSON.stringify(paymentDetails),
+        body: JSON.stringify({ flights: flightDetails }), 
       });
   
       if (response.ok) {
         const result = await response.json();
-        console.log('Correo enviado correctamente:', result);
-        setAlertMessage('El correo fue enviado correctamente.');
+        console.log('Compra realizada exitosamente:', result);
+        setAlertMessage('¡Compra realizada y correos enviados exitosamente!');
       } else {
         const errorData = await response.json();
         console.error('Error del backend:', errorData);
-        setAlertMessage(`Error del servidor: ${errorData.message || 'Error desconocido.'}`);
+        setAlertMessage('Hubo un error al procesar tu compra. Por favor, intenta nuevamente.');
       }
     } catch (error) {
-      console.error('Error al enviar el correo:', error);
-      setAlertMessage('Hubo un error al enviar el correo. Inténtalo nuevamente.');
+      console.error('Error al conectar con el servidor:', error);
+      setAlertMessage('Hubo un error al conectar con el servidor. Intenta más tarde.');
     }
-  };  
+  };
   
+ 
   
-
   return (
     <>
       <Container className="flight-selection-container">
