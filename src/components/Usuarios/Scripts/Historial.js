@@ -4,18 +4,62 @@ import '../Styles/Historial.css';
 const Historial = () => {
   const [userFlights, setUserFlights] = useState([]);
 
-  useEffect(() => {
-    const obtenerVuelos = async () => {
-      try {
-        const response = await fetch('/api/vuelos');//completar
-        const vuelos = await response.json();
-        setUserFlights(vuelos);
-      } catch (error) {
-        console.error('Error al obtener el historial de vuelos:', error);
+  const fetchFlights = async () => {
+    try {
+      const authToken = localStorage.getItem('authToken');
+      //const token = localStorage.getItem('token');
+      if (!authToken) {
+        console.error('Token no encontrado. Usuario no autenticado.');
+        return;
       }
-    };
 
-    obtenerVuelos();
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/history/historial`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al obtener el historial de vuelos');
+      }
+
+      const vuelos = await response.json();
+      setUserFlights(vuelos);
+    } catch (error) {
+      console.error('Error al obtener el historial de vuelos:', error);
+    }
+  };
+  const cancelarVuelo = async (idVuelo) => {
+
+    try {
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        console.error('Token no encontrado. Usuario no autenticado.');
+        return;
+      }
+  
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/history/eliminar/${idVuelo}`, {
+        method: 'DELETE',  
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al cancelar el vuelo');
+      }
+  
+      setUserFlights((prevFlights) =>
+        prevFlights.filter((flight) => flight._id !== idVuelo)
+      );
+    } catch (error) {
+      console.error('Error al cancelar el vuelo:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlights();
   }, []);
 
   return (
@@ -30,19 +74,25 @@ const Historial = () => {
         <ul className="flights-list">
           {userFlights.map((flight, index) => (
             <li key={index} className="flight-item">
-              <div className="ticket">
+              <div className={`ticket ${flight.estadoVuelo === 'Cancelado' ? 'cancelled' : ''}`}>
                 <div className="ticket-header">
+                  <p><strong>Partida:</strong> {flight.lugarPartida}</p> {/* Nueva línea agregada para la partida */}
                   <p><strong>Destino:</strong> {flight.lugarDestino}</p>
                   <p><strong>Fecha:</strong> {new Date(flight.fechaVuelo).toLocaleDateString()}</p>
                 </div>
                 <div className="ticket-body">
                   <p><strong>Precio:</strong> ${flight.precio}</p>
-                  <p><strong>Clase:</strong> {flight.claseServicio}</p>
                   <p><strong>Aerolínea:</strong> {flight.aerolinea}</p>
-                  <p><strong>Estado de pago:</strong> {flight.estadoPago}</p>
                 </div>
                 <div className="ticket-footer">
-                  <button className="btn-details">Ver detalles</button>
+                  {flight.estadoVuelo !== 'Cancelado' && (
+                    <button
+                      className="btn-cancel"
+                      onClick={() => cancelarVuelo(flight._id)}
+                    >
+                      Cancelar Vuelo
+                    </button>
+                  )}
                 </div>
               </div>
             </li>
@@ -51,6 +101,7 @@ const Historial = () => {
       )}
     </div>
   );
+  
 };
 
 export default Historial;
