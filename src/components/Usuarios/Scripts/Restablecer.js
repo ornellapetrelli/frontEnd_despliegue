@@ -53,7 +53,7 @@ function ResetPassword() {
           <h1 className="text-center mb-4">Restablecer Contraseña</h1>
           {successMessage && <Alert variant="success">{successMessage}</Alert>}
           {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-          {passwordError && <Alert variant="danger">{passwordError}</Alert>} {/* Mostrar error de longitud */}
+          {passwordError && <Alert variant="danger">{passwordError}</Alert>} 
           <Form.Group controlId="formNewPassword" className="mb-3">
             <Form.Label>Nueva Contraseña</Form.Label>
             <Form.Control
